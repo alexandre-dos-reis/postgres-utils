@@ -5,12 +5,25 @@
 ### List of functions
 
 ```sql
-SELECT
+select
     routine_name
-FROM 
+from 
     information_schema.routines
-WHERE 
+where 
     routine_type = 'FUNCTION'
-AND
+and
     routine_schema = 'public';
+```
+
+### Create a function (with idempotency)
+
+```sql
+create or replace function add(a int, b int) returns int as $$
+declare 
+    -- variable declaration
+begin
+    -- logic
+    select a + b
+end;
+$$ language sql stable;
 ```
