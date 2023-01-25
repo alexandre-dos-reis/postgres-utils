@@ -27,3 +27,24 @@ begin
 end;
 $$ language sql stable;
 ```
+
+## Roles / User
+
+### Create a user with login enabled
+
+```sql
+create role 
+    forum_example_postgraphile login password 'xyz';
+```
+
+### Create a role with idempotency
+
+```sql
+DO $$
+BEGIN
+    CREATE ROLE rick_deckard;    
+EXCEPTION   
+    WHEN duplicate_object THEN
+        RAISE NOTICE 'Role already exists. Ignoring...';    
+END$$;
+```
